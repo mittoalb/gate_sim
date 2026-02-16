@@ -1,148 +1,79 @@
-# Project Name
+# GATE Simulation - ZEISS Tomography
 
-Short description of what this project does.
+Monte Carlo simulations for ZEISS X-ray tomography systems using OpenGATE.
 
 ------------------------------------------------------------------------
 
 ## 📦 Requirements
 
--   Miniconda or Anaconda
 -   Python ≥ 3.10
--   (Optional) CUDA for GPU acceleration
+-   OpenGATE (Monte Carlo simulation toolkit)
+-   spekpy (X-ray spectrum generation)
+-   ITK (image processing)
+-   NumPy, SciPy, h5py
 
-Check that conda is installed:
+------------------------------------------------------------------------
+
+## 🛠 Setup
+
+Install dependencies:
 
 ``` bash
-conda --version
+pip install opengate spekpy itk h5py numpy scipy
 ```
 
 ------------------------------------------------------------------------
 
-## 🛠 Create Conda Environment
+## 🚀 Usage
 
-### Option 1 --- Using `environment.yml` (Recommended)
-
-Create the environment:
+### Run Single Projection Simulation
 
 ``` bash
-conda env create -f environment.yml
+python zeiss_tomo/sim_proj.py
 ```
 
-Activate the environment:
+### Run Full Tomography Acquisition
 
 ``` bash
-conda activate myenv
+python zeiss_tomo/run_all.py
 ```
 
-Update the environment later if needed:
+### Accumulate Results
 
 ``` bash
-conda env update -f environment.yml --prune
-```
-
-------------------------------------------------------------------------
-
-### Option 2 --- Manual Creation
-
-Create a new environment:
-
-``` bash
-conda create -n myenv python=3.10 -y
-```
-
-Activate it:
-
-``` bash
-conda activate myenv
-```
-
-Install base dependencies:
-
-``` bash
-conda install numpy scipy matplotlib -y
-```
-
-Install additional pip dependencies:
-
-``` bash
-pip install -r requirements.txt
-```
-
-------------------------------------------------------------------------
-
-## 🚀 Install This Package
-
-From the project root directory:
-
-Standard install:
-
-``` bash
-pip install .
-```
-
-Development install (editable mode):
-
-``` bash
-pip install -e .
-```
-
-------------------------------------------------------------------------
-
-## 🔬 GPU Setup (Optional)
-
-If using CUDA (example: CUDA 12):
-
-``` bash
-conda install -c conda-forge cudatoolkit=12.0
-pip install cupy-cuda12x
-```
-
-Verify GPU access:
-
-``` bash
-python -c "import cupy as cp; print(cp.cuda.runtime.getDeviceCount())"
-```
-
-------------------------------------------------------------------------
-
-## ✅ Verify Installation
-
-``` bash
-python -c "import your_package_name; print('Installation successful')"
+python zeiss_tomo/accumulate.py
 ```
 
 ------------------------------------------------------------------------
 
 ## 📁 Project Structure
 
-    project/
+    gate_sim/
     │
-    ├── your_package/
-    ├── environment.yml
-    ├── requirements.txt
-    ├── pyproject.toml
+    ├── zeiss_tomo/           # Main package
+    │   ├── sim_proj.py       # Projection simulation
+    │   ├── run_all.py        # Full acquisition runner
+    │   └── accumulate.py     # Results accumulator
+    │
+    ├── scripts/              # Additional simulation scripts
+    │   ├── sim1-4.py
+    │   ├── zeiss_versa.py
+    │   └── zeiss_tomo.py
+    │
     └── README.md
 
 ------------------------------------------------------------------------
 
-## 🧹 Remove Environment
+## 📊 Simulation Features
 
-Deactivate:
-
-``` bash
-conda deactivate
-```
-
-Remove completely:
-
-``` bash
-conda remove -n myenv --all
-```
+-   ZEISS-like X-ray spectrum generation (with Be/Al/Cu filtration)
+-   Dose and energy deposition tracking
+-   Projection data acquisition
+-   ITK integration for image processing
 
 ------------------------------------------------------------------------
 
 ## 💡 Notes
 
--   Replace `myenv` with your desired environment name.
--   Replace `your_package_name` with your actual Python package name.
--   If GPU is not required, skip the CUDA section.
+-   Large result files (.h5, .raw, .mhd) are excluded from git
+-   Projection data directories are excluded from version control
